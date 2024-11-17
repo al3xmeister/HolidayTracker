@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HolidayTracker.Pages.InputHolidayPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:HolidayTracker.ViewModels"
+    Title="Input Blocked Days"
+    x:DataType="viewmodels:InputHolidayViewModel">
+    <Grid>
+        <StackLayout
+            Padding="20"
+            Spacing="15">
+
+            <Label
+                FontAttributes="Bold"
+                Text="Start Date" />
+            <DatePicker
+                Date="{Binding StartDate,
+                               Mode=TwoWay}"
+                DateSelected="DatePicker_DateSelected"
+                Format="dd/MM/yyyy"
+                MinimumDate="{Binding Today}" />
+
+            <Label
+                FontAttributes="Bold"
+                Text="End Date" />
+            <DatePicker
+                Date="{Binding EndDate,
+                               Mode=TwoWay}"
+                Format="dd/MM/yyyy"
+                MinimumDate="{Binding Today}" />
+
+            <Label
+                FontAttributes="Bold"
+                Text="Name" />
+            <Entry
+                x:Name="NameEntry"
+                Placeholder="Enter name"
+                Text="{Binding InputName,
+                               Mode=TwoWay}" />
+
+            <Button
+                Command="{Binding SaveCommand}"
+                CommandParameter="{x:Reference NameEntry}"
+                Text="{Binding SaveText}" />
+
+        </StackLayout>
+    </Grid>
+</ContentPage>
