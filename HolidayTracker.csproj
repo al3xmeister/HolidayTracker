@@ -46,6 +46,9 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove=".gitignore" />
+	</ItemGroup>
   
 	<ItemGroup>
 	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#9CB4B8" BaseSize="480,480" />

@@ -2,14 +2,5 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/bin/
-/obj/
-/HolidayTracker/.vs
-/HolidayTracker/bin/Debug
-/HolidayTracker/obj
-/HolidayTracker/bin/Release/net8.0-android
-/HolidayTracker/HolidayTracker.csproj.user
-/.editorconfig
-/HolidayTracker
+/.vs/HolidayTracker
 /bin/Debug/net8.0-android
