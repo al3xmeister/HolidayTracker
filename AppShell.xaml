@@ -35,7 +35,7 @@
             <ShellContent.Icon>
                 <FontImageSource
                     FontFamily="FontAwesome6"
-                    Glyph="{x:Static helpers:Icons.CircleStop}"
+                    Glyph="{x:Static helpers:Icons.Plane}"
                     Size="25"
                     Color="Black" />
             </ShellContent.Icon>

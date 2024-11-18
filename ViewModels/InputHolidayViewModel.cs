@@ -45,17 +45,6 @@ namespace HolidayTracker.ViewModels
                 Status = Status
             };
 
-            int daysTaken;
-
-            if (Person == "Alex")
-            {
-                daysTaken = _service.CalculateDaysTakenForAlex(StartDate, EndDate);
-            }
-            else if (Person == "Ella")
-            {
-                daysTaken = _service.CalculateDaysTakenForElla(StartDate, EndDate);
-            }
-
             var result = await _service.SaveHoliday(booked);
 
             if (result == 1)

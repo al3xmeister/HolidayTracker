@@ -19,15 +19,15 @@
             Margin="0,10"
             FontSize="20"
             HorizontalOptions="Center"
-            Text="Per total:" />
+            Text="În momentul de față:" />
 
         <VerticalStackLayout Grid.Row="1">
-            <Label Text="{Binding TakenDaysAlex, StringFormat='Alex are {0}/33 zile luate de concediu pentru anul 2024/2025.'}" />
-            <Label Text="{Binding TakenDaysElla, StringFormat='Alex are {0}/16 zile luate de concediu pentru anul 2024/2025.'}" />
+            <Label Text="{Binding TakenDaysAlex, StringFormat='Alex are {0:F1}/33 zile luate de concediu pentru anul 2024/2025.'}" />
+            <Label Text="{Binding TakenDaysElla, StringFormat='Ella are {0:F1}/23.4 zile luate de concediu pentru anul 2024/2025.'}" />
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="2">
-            <Label Text="{Binding DaysUntilNextHoliday, StringFormat='Au mai rămas {0} zile până la concediul următor.'}" />
+            <Label Text="{Binding DaysUntilNextHoliday, StringFormat='Au mai rămas {0:F1} zile până la concediul următor.'}" />
             <Label>
                 <Label.FormattedText>
                     <FormattedString>
@@ -71,8 +71,8 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="4">
-            <Label Text="{Binding RemainingDaysAlex, StringFormat='Au mai rămas de luat anul ăsta pt Alex: {0} zile.'}" />
-            <Label Text="{Binding RemainingDaysElla, StringFormat='Au mai rămas de luat anul ăsta pt Ella: {0} zile.'}" />
+            <Label Text="{Binding RemainingDaysAlex, StringFormat='Au mai rămas de luat anul ăsta pt Alex: {0:F1} zile.'}" />
+            <Label Text="{Binding RemainingDaysElla, StringFormat='Au mai rămas de luat anul ăsta pt Ella: {0:F1} zile.'}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

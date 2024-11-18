@@ -30,6 +30,7 @@ public class Holiday : INotifyPropertyChanged
     public DateTime EndDate { get; set; }
     public string? Person { get; set; }
     public string? Status { get; set; }
+    public bool HalfDay { get; set; }
     protected void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -7,16 +7,16 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
 {
     private readonly HolidayTrackerService _service = service;
     [ObservableProperty]
-    private int _remainingDaysAlex;
+    private double _remainingDaysAlex;
 
     [ObservableProperty]
-    private int _remainingDaysElla;
+    private double _remainingDaysElla;
 
     [ObservableProperty]
-    private int _takenDaysAlex;
+    private double _takenDaysAlex;
 
     [ObservableProperty]
-    private int _takenDaysElla;
+    private double _takenDaysElla;
 
     [ObservableProperty]
     private double _daysUntilNextHoliday;
@@ -41,7 +41,7 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
         var getAllHolidays = await _service.GetAllHolidays();
         var getCurrentYearHolidaysAlex = getAllHolidays.Where(d => d.Person == Enums.Person.Alex.ToString() && d.StartDate.Year == today.Year);
         var getCurrentYearHolidaysElla = getAllHolidays.Where(d => d.Person == Enums.Person.Ella.ToString() && d.StartDate.Year == today.Year);
-        var takenDaysAlex = 0;
+        double takenDaysAlex = 0;
         foreach (var holiday in getCurrentYearHolidaysAlex)
         {
             var taken = _service.CalculateDaysTakenForAlex(holiday);
@@ -50,7 +50,7 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
         TakenDaysAlex = takenDaysAlex;
         RemainingDaysAlex = HolidayAllowance.AllowanceForAlex - TakenDaysAlex;
 
-        var takenDaysElla = 0;
+        double takenDaysElla = 0;
         foreach (var holiday in getCurrentYearHolidaysElla)
         {
             var taken = _service.CalculateDaysTakenForElla(holiday);

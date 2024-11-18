@@ -7,8 +7,6 @@ namespace HolidayTracker.Services
         Task<int> DeleteHolidays(Holiday booked);
         Task<int> SaveHoliday(Holiday booked);
         Task ResetDatabase();
-        int CalculateDaysTakenForAlex(DateTime startDate, DateTime endDate);
-        int CalculateDaysTakenForElla(DateTime startDate, DateTime endDate);
         Task SeedDataAsync();
         Task<Holiday?> GetHolidayById(int holidayId);
     }
