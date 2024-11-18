@@ -44,7 +44,7 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
         double takenDaysAlex = 0;
         foreach (var holiday in getCurrentYearHolidaysAlex)
         {
-            var taken = _service.CalculateDaysTakenForAlex(holiday);
+            var taken = await _service.CalculateDaysTakenForAlex(holiday);
             takenDaysAlex += taken;
         }
         TakenDaysAlex = takenDaysAlex;
@@ -53,7 +53,7 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
         double takenDaysElla = 0;
         foreach (var holiday in getCurrentYearHolidaysElla)
         {
-            var taken = _service.CalculateDaysTakenForElla(holiday);
+            var taken = await _service.CalculateDaysTakenForElla(holiday);
             takenDaysElla += taken;
         }
         TakenDaysElla = takenDaysElla;
@@ -80,9 +80,9 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
             {
                 CurrentEnd = current.EndDate,
                 NextStart = next.StartDate,
-                Gap = Math.Max(0, (next.StartDate - current.EndDate).TotalDays) 
+                Gap = Math.Max(0, (next.StartDate - current.EndDate).TotalDays)
             })
-            .OrderByDescending(g => g.Gap) 
+            .OrderByDescending(g => g.Gap)
             .FirstOrDefault();
         if (furthestApart is not null)
         {

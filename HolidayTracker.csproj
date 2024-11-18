@@ -58,6 +58,9 @@
 	  <Compile Update="Pages\SettingsPage.xaml.cs">
 	    <DependentUpon>SettingsPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\ViewGiftDaysPage.xaml.cs">
+	    <DependentUpon>ViewGiftDaysPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\ViewBookedPage.xaml.cs">
 	    <DependentUpon>ViewBookedPage.xaml</DependentUpon>
 	  </Compile>
@@ -68,6 +71,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\InputHolidayPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ViewGiftDaysPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ViewBookedPage.xaml">

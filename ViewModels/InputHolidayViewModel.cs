@@ -29,8 +29,16 @@ namespace HolidayTracker.ViewModels
 
         public ObservableCollection<string> Persons { get; } =
         [
-            HolidayTracker.Enums.Person.Alex.ToString(),
-            HolidayTracker.Enums.Person.Ella.ToString(),
+            Enums.Person.Alex.ToString(),
+            Enums.Person.Ella.ToString(),
+        ];
+
+        public ObservableCollection<string> Statuses { get; } =
+        [
+            Enums.Status.Aprobat.ToString(),
+            Enums.Status.AprobatDoarInTimetastic.ToString(),
+            Enums.Status.CerutPentruAprobare.ToString(),
+            Enums.Status.Necerut.ToString(),
         ];
 
         [RelayCommand]

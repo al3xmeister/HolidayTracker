@@ -7,7 +7,7 @@ namespace HolidayTracker.ViewModels
         private readonly HolidayTrackerService _service = service;
 
         [ObservableProperty]
-        private ObservableCollection<Holiday> _holidays;
+        private ObservableCollection<Holiday>? _holidays;
 
         [ObservableProperty]
         private DateTime _today = DateTime.Today;

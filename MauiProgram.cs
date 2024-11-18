@@ -43,6 +43,7 @@ public static class MauiProgram
         builder.Services.AddSingleton(_ => new SQLiteAsyncConnection(dbPath));
 
         builder.Services.AddSingleton<HolidayRepository>();
+        builder.Services.AddSingleton<GiftDayRepository>();
         builder.Services.AddSingleton<HolidayTrackerService>();
 
         builder.Services.AddTransient<HomeViewModel>();
@@ -53,6 +54,9 @@ public static class MauiProgram
 
         builder.Services.AddTransient<ViewBookedPage>();
         builder.Services.AddTransient<ViewBookedViewModel>();
+
+        builder.Services.AddTransient<ViewGiftDaysPage>();
+        builder.Services.AddTransient<ViewGiftDaysViewModel>();
 
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddTransient<SettingsViewModel>();

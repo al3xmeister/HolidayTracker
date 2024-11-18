@@ -7,7 +7,7 @@ namespace HolidayTracker.ViewModels
         private readonly HolidayTrackerService _service = service;
 
         [ObservableProperty]
-        private ObservableCollection<Holiday> _blocked;
+        private ObservableCollection<Holiday>? _booked;
 
         [ObservableProperty]
         private DateTime _today = DateTime.Today;
@@ -15,7 +15,7 @@ namespace HolidayTracker.ViewModels
         public async Task LoadBookedDays()
         {
             var booked = await _service.GetAllHolidays();
-            Blocked = new ObservableCollection<Holiday>(
+            Booked = new ObservableCollection<Holiday>(
                 booked.OrderBy(d => d.StartDate)
             );
         }
@@ -33,7 +33,7 @@ namespace HolidayTracker.ViewModels
 
             if (result == 1)
             {
-                Blocked.Remove(booked);
+                Booked?.Remove(booked);
             }
         }
 

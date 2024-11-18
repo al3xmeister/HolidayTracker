@@ -2,13 +2,19 @@
 
 namespace HolidayTracker.Services
 {
-    public class HolidayTrackerService(HolidayRepository holidayRepository) : IHolidayTrackerService
+    public class HolidayTrackerService(HolidayRepository holidayRepository, GiftDayRepository giftDayRepository) : IHolidayTrackerService
     {
         private readonly HolidayRepository _holidayRepository = holidayRepository;
+        private readonly GiftDayRepository _giftDayRepository = giftDayRepository;
 
         public async Task<List<Holiday>> GetAllHolidays()
         {
             return await _holidayRepository.GetItemsAsync();
+        }
+
+        public async Task<List<GiftDay>> GetGiftedHolidays()
+        {
+            return await _giftDayRepository.GetItemsAsync();
         }
 
         public async Task<int> DeleteHolidays(Holiday booked)
@@ -16,9 +22,19 @@ namespace HolidayTracker.Services
             return await _holidayRepository.DeleteItemAsync(booked);
         }
 
+        public async Task<int> DeleteGiftDay(GiftDay gift)
+        {
+            return await _giftDayRepository.DeleteItemAsync(gift);
+        }
+
         public async Task<int> SaveHoliday(Holiday booked)
         {
             return await _holidayRepository.DeleteItemAsync(booked);
+        }
+
+        public async Task<int> SaveGiftDay(GiftDay gift)
+        {
+            return await _giftDayRepository.DeleteItemAsync(gift);
         }
 
         public async Task ResetDatabase()
@@ -40,13 +56,15 @@ namespace HolidayTracker.Services
             await SeedDataAsync();
         }
 
-        public double CalculateDaysTakenForAlex(Holiday holiday)
+        public async Task<double> CalculateDaysTakenForAlex(Holiday holiday)
         {
             if (holiday is null)
             {
                 throw new ArgumentNullException();
             }
             double workdayCount = 0;
+            var allGiftDays = await _giftDayRepository.GetItemsAsync();
+            var alexGiftDays = allGiftDays.Where(d => d.Person == Enums.Person.Alex.ToString());
 
             // Loop through each date in the range
             for (var date = holiday.StartDate; date <= holiday.EndDate && date.Year == DateTime.Today.Year; date = date.AddDays(1))
@@ -54,13 +72,16 @@ namespace HolidayTracker.Services
                 // Check if the day is a weekday (Monday to Friday)
                 if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
                 {
-                    if (holiday.HalfDay)
+                    if (!alexGiftDays.Any(d => d.Day == date))
                     {
-                        workdayCount = workdayCount + 0.5;
-                    }
-                    else
-                    {
-                        workdayCount++;
+                        if (holiday.HalfDay)
+                        {
+                            workdayCount = workdayCount + 0.5;
+                        }
+                        else
+                        {
+                            workdayCount++;
+                        }
                     }
                 }
             }
@@ -68,13 +89,15 @@ namespace HolidayTracker.Services
             return workdayCount;
         }
 
-        public double CalculateDaysTakenForElla(Holiday holiday)
+        public async Task<double> CalculateDaysTakenForElla(Holiday holiday)
         {
             if (holiday is null)
             {
                 throw new ArgumentNullException();
             }
             double workdayCount = 0;
+            var allGiftDays = await _giftDayRepository.GetItemsAsync();
+            var ellaGiftDays = allGiftDays.Where(d => d.Person == Enums.Person.Ella.ToString());
 
             // Loop through each date in the range
             for (var date = holiday.StartDate; date <= holiday.EndDate && date.Year == DateTime.Today.Year; date = date.AddDays(1))
@@ -82,13 +105,16 @@ namespace HolidayTracker.Services
                 // Check if the day is a work day (Thu, Wed, Fri,Sat)
                 if (date.DayOfWeek == DayOfWeek.Tuesday || date.DayOfWeek == DayOfWeek.Wednesday || date.DayOfWeek == DayOfWeek.Friday || date.DayOfWeek == DayOfWeek.Saturday)
                 {
-                    if (holiday.HalfDay)
+                    if (!ellaGiftDays.Any(d => d.Day == date))
                     {
-                        workdayCount = workdayCount + 0.5;
-                    }
-                    else
-                    {
-                        workdayCount++;
+                        if (holiday.HalfDay)
+                        {
+                            workdayCount = workdayCount + 0.5;
+                        }
+                        else
+                        {
+                            workdayCount++;
+                        }
                     }
                 }
             }
@@ -107,7 +133,8 @@ namespace HolidayTracker.Services
                 {
                     var startYearIndex = DateTime.Today.Year;
 
-                    var toAdd = new List<Holiday>();
+                    var toAddHolidays = new List<Holiday>();
+                    var toAddGifts = new List<GiftDay>();
 
                     //Alex
                     for (int i = startYearIndex; i < startYearIndex + 1; i++)
@@ -130,7 +157,7 @@ namespace HolidayTracker.Services
                             new Holiday { Name = "Crăciun3", StartDate = new DateTime(i, 12, 28), EndDate = new DateTime(i, 12, 31), Person=Enums.Person.Alex.ToString(), Status = Enums.Status.AprobatDoarInTimetastic.ToString()},
                         };
 
-                        toAdd.AddRange(aproved);
+                        toAddHolidays.AddRange(aproved);
                     }
 
                     //Ella
@@ -142,7 +169,7 @@ namespace HolidayTracker.Services
                            new Holiday { Name = "Zi de naștere", StartDate = new DateTime(i, 11, 26), EndDate = new DateTime(i, 11, 26), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                         };
 
-                        toAdd.AddRange(preApproved);
+                        toAddHolidays.AddRange(preApproved);
                     }
 
                     var approved = new List<Holiday>
@@ -155,8 +182,17 @@ namespace HolidayTracker.Services
                            new Holiday { Name = "Croazieră", StartDate = new DateTime(2024, 11, 22), EndDate = new DateTime(2024, 11, 30), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                         };
 
-                    toAdd.AddRange(approved);
-                    await _holidayRepository.InsertItemsAsync([.. toAdd.OrderBy(d => d.StartDate)]);
+                    toAddHolidays.AddRange(approved);
+                    await _holidayRepository.InsertItemsAsync([.. toAddHolidays.OrderBy(d => d.StartDate)]);
+
+
+                    var gifted = new List<GiftDay>
+                        {
+                           new GiftDay { Name = "Zi de naștere", Day = new DateTime(DateTime.Today.Year, 11, 26), Person=Enums.Person.Ella.ToString() },
+                        };
+
+                    toAddGifts.AddRange(gifted);
+                    await _giftDayRepository.InsertItemsAsync([.. toAddGifts.OrderBy(d => d.Day)]);
                 }
             }
             catch (Exception ex)

@@ -42,6 +42,19 @@
         </ShellContent>
 
         <ShellContent
+            Title="Extra"
+            ContentTemplate="{DataTemplate views:ViewGiftDaysPage}"
+            Route="ViewExtraPage">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="FontAwesome6"
+                    Glyph="{x:Static helpers:Icons.Gift}"
+                    Size="25"
+                    Color="Black" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent
             Title="Settings"
             ContentTemplate="{DataTemplate views:SettingsPage}"
             Route="SettingsPage">

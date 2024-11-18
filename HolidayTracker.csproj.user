@@ -36,6 +36,9 @@
     <MauiXaml Update="Pages\InputHolidayPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Pages\ViewGiftDaysPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Pages\ViewBookedPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
