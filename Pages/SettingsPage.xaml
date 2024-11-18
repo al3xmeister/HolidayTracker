@@ -12,18 +12,6 @@
             Text="Welcome to Settings"
             VerticalOptions="Center" />
 
-        <StackLayout
-            Padding="10"
-            Orientation="Horizontal">
-            <Label
-                Text="Exclude zile apropiate"
-                VerticalOptions="Center" />
-            <CheckBox
-                IsChecked="{Binding StrictMode}"
-                VerticalOptions="Center" />
-        </StackLayout>
-
-
         <Button
             Margin="10,0"
             Command="{Binding ResetDatabaseCommand}"

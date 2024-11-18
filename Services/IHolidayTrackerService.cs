@@ -9,7 +9,7 @@ namespace HolidayTracker.Services
         Task ResetDatabase();
         int CalculateDaysTakenForAlex(DateTime startDate, DateTime endDate);
         int CalculateDaysTakenForElla(DateTime startDate, DateTime endDate);
-
         Task SeedDataAsync();
+        Task<Holiday?> GetHolidayById(int holidayId);
     }
 }

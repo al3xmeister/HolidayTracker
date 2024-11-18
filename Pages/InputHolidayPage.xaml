@@ -34,11 +34,13 @@
                 FontAttributes="Bold"
                 Text="Name" />
             <Entry
+                x:Name="NameEntry"
                 Placeholder="Nume concediu"
                 Text="{Binding InputName,
                                Mode=TwoWay}" />
 
             <Entry
+                x:Name="StatusEntry"
                 Placeholder="Statut"
                 Text="{Binding Status,
                                Mode=TwoWay}" />
@@ -50,7 +52,7 @@
 
             <Button
                 Command="{Binding SaveCommand}"
-                CommandParameter="{x:Reference NameEntry}"
+                CommandParameter="{x:Reference StatusEntry}"
                 Text="{Binding SaveText}" />
 
         </StackLayout>

@@ -19,7 +19,7 @@ public partial class App : Application
     {
         base.OnStart();
 
-        Application.Current.UserAppTheme = AppTheme.Light;
+        Application.Current!.UserAppTheme = AppTheme.Light;
 
         // Initialize the database asynchronously only once on app start
         try

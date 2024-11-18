@@ -23,14 +23,13 @@ public class Holiday : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public string Person { get; set; }
-    public string Status { get; set; }
-    public int Taken { get; set; }
+    public string? Person { get; set; }
+    public string? Status { get; set; }
     protected void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

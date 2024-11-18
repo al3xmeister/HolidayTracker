@@ -7,7 +7,7 @@ namespace HolidayTracker.ViewModels
         private readonly HolidayTrackerService _service = service;
 
         [ObservableProperty]
-        private string _inputName;
+        private string? _inputName;
 
         [ObservableProperty]
         private DateTime _today = DateTime.Today;
@@ -19,19 +19,19 @@ namespace HolidayTracker.ViewModels
         private DateTime _endDate;
 
         [ObservableProperty]
-        private string _saveText;
+        private string? _saveText;
 
         [ObservableProperty]
-        private string _person;
+        private string? _person;
 
         [ObservableProperty]
-        private string _status;
+        private string? _status;
 
-        public ObservableCollection<string> Persons { get; } = new ObservableCollection<string>
-        {
-            "Alex",
-            "Ella"
-        };
+        public ObservableCollection<string> Persons { get; } =
+        [
+            HolidayTracker.Enums.Person.Alex.ToString(),
+            HolidayTracker.Enums.Person.Ella.ToString(),
+        ];
 
         [RelayCommand]
         private async Task SaveAsync(ITextInput input)

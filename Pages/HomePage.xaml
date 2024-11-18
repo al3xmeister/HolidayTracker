@@ -22,25 +22,57 @@
             Text="Per total:" />
 
         <VerticalStackLayout Grid.Row="1">
-            <Label Text="Ella are x/33 zile luate de concediu pentru anul 2024/2025" />
-            <Label Text="Alex are x/16 zile luate de concediu pentru anul 2024/2025" />
+            <Label Text="{Binding TakenDaysAlex, StringFormat='Alex are {0}/33 zile luate de concediu pentru anul 2024/2025.'}" />
+            <Label Text="{Binding TakenDaysElla, StringFormat='Alex are {0}/16 zile luate de concediu pentru anul 2024/2025.'}" />
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="2">
-            <Label Text="Au mai rămas x zile până la concediul următor:" />
+            <Label Text="{Binding DaysUntilNextHoliday, StringFormat='Au mai rămas {0} zile până la concediul următor.'}" />
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Va începe pe " />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding NextHolidayStart,
+                                           StringFormat='{0:dd/MM/yy}'}" />
+                        <Span Text=" și va dura până pe " />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding NextHolidayEnd,
+                                           StringFormat='{0:dd/MM/yy}'}" />
+                        <Span Text="." />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="3">
-            <Label Text="Media zilelor între concedii este de x zile" />
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Cea mai mare distanță între concedii este de " />
+                        <Span Text="{Binding HighestNoOfDaysApart}" />
+                        <Span Text=" zile și este între " />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding FarApartHolidayEnd,
+                                           StringFormat='{0:dd/MM/yy}'}" />
+                        <Span Text=" și " />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding FarApartHolidayStart,
+                                           StringFormat='{0:dd/MM/yy}'}" />
+                        <Span Text="." />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="4">
-            <Label Text="Cea mai mare distanta intre concedii este intre x si y" />
-        </VerticalStackLayout>
-
-        <VerticalStackLayout Grid.Row="5">
-            <Label Text="{Binding RemainingDaysAlex, StringFormat='Au mai rămas de luat anul ăsta pt Alex: {0} zile'}" />
-            <Label Text="{Binding RemainingDaysElla, StringFormat='Au mai rămas de luat anul ăsta pt Ella: {0} zile'}" />
+            <Label Text="{Binding RemainingDaysAlex, StringFormat='Au mai rămas de luat anul ăsta pt Alex: {0} zile.'}" />
+            <Label Text="{Binding RemainingDaysElla, StringFormat='Au mai rămas de luat anul ăsta pt Ella: {0} zile.'}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

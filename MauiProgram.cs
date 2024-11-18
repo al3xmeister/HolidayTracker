@@ -42,8 +42,7 @@ public static class MauiProgram
         string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HolidayTracker.db3");
         builder.Services.AddSingleton(_ => new SQLiteAsyncConnection(dbPath));
 
-        builder.Services.AddSingleton<HolidaysRepository>();
-        builder.Services.AddSingleton<HolidaysRepository>();
+        builder.Services.AddSingleton<HolidayRepository>();
         builder.Services.AddSingleton<HolidayTrackerService>();
 
         builder.Services.AddTransient<HomeViewModel>();
