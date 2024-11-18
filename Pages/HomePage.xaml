@@ -41,7 +41,10 @@
                             FontAttributes="Bold"
                             Text="{Binding NextHolidayEnd,
                                            StringFormat='{0:dd/MM/yy}'}" />
-                        <Span Text="." />
+                        <Span Text=": " />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding NextHolidayName}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>

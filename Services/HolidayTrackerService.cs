@@ -165,8 +165,9 @@ namespace HolidayTracker.Services
                     {
                         var preApproved = new List<Holiday>
                         {
-                           // new Holiday { Name = "Crăciun", StartDate = new DateTime(i, 12, 25), EndDate = new DateTime(i, 12, 26), Person=Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
+                           new Holiday { Name = "Crăciun", StartDate = new DateTime(i, 12, 25), EndDate = new DateTime(i, 12, 26), Person=Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                            new Holiday { Name = "Zi de naștere", StartDate = new DateTime(i, 11, 26), EndDate = new DateTime(i, 11, 26), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
+                           new Holiday { Name = "Anul nou", StartDate = new DateTime(i, 1, 1), EndDate = new DateTime(i, 1, 2), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                         };
 
                         toAddHolidays.AddRange(preApproved);
@@ -174,21 +175,24 @@ namespace HolidayTracker.Services
 
                     var approved = new List<Holiday>
                         {
-                           new Holiday { Name = "Ian1", StartDate = new DateTime(2024, 1, 2), EndDate = new DateTime(2024, 1, 2), Person=Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                            new Holiday { Name = "Ian2", StartDate = new DateTime(2024, 1, 23), EndDate = new DateTime(2024, 1, 23), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                            new Holiday { Name = "Feb", StartDate = new DateTime(2024, 2, 20), EndDate = new DateTime(2024, 2, 24), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                            new Holiday { Name = "May", StartDate = new DateTime(2024, 5, 3), EndDate = new DateTime(2024, 5, 4), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                            new Holiday { Name = "June", StartDate = new DateTime(2024, 6, 7), EndDate = new DateTime(2024, 6, 22), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
                            new Holiday { Name = "Croazieră", StartDate = new DateTime(2024, 11, 22), EndDate = new DateTime(2024, 11, 30), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
+                           new Holiday { Name = "Revelion", StartDate = new DateTime(2024, 12, 31), EndDate = new DateTime(2024, 12, 31), Person = Enums.Person.Ella.ToString(), Status = Enums.Status.Aprobat.ToString() },
+
                         };
 
                     toAddHolidays.AddRange(approved);
                     await _holidayRepository.InsertItemsAsync([.. toAddHolidays.OrderBy(d => d.StartDate)]);
 
-
                     var gifted = new List<GiftDay>
                         {
                            new GiftDay { Name = "Zi de naștere", Day = new DateTime(DateTime.Today.Year, 11, 26), Person=Enums.Person.Ella.ToString() },
+                           new GiftDay { Name = "Crăciun 1", Day = new DateTime(DateTime.Today.Year, 11, 25), Person=Enums.Person.Ella.ToString() },
+                           new GiftDay { Name = "Crăciun 2", Day = new DateTime(DateTime.Today.Year, 11, 26), Person=Enums.Person.Ella.ToString() },
+                           new GiftDay { Name = "În schimb pt 30 Dec", Day = new DateTime(DateTime.Today.Year, 12, 31), Person=Enums.Person.Ella.ToString() },
                         };
 
                     toAddGifts.AddRange(gifted);

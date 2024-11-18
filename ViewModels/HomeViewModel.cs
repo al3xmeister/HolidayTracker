@@ -28,6 +28,9 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
     private DateTime _nextHolidayEnd;
 
     [ObservableProperty]
+    private string? _nextHolidayName;
+
+    [ObservableProperty]
     private DateTime _farApartHolidayStart;
 
     [ObservableProperty]
@@ -66,6 +69,7 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
             DaysUntilNextHoliday = (closestHoliday.StartDate - today).Days;
             NextHolidayStart = closestHoliday.StartDate;
             NextHolidayEnd = closestHoliday.EndDate;
+            NextHolidayName = closestHoliday.Name;
         }
         else
         {
@@ -74,21 +78,30 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
             NextHolidayStart = NextHolidayEnd = nextYearsFirstDay;
         }
 
-        var furthestApart = getAllHolidays
-            .Where(e => e.StartDate >= DateTime.Today)
-            .Zip(getAllHolidays.OrderBy(e => e.StartDate).Skip(1), (current, next) => new
-            {
-                CurrentEnd = current.EndDate,
-                NextStart = next.StartDate,
-                Gap = Math.Max(0, (next.StartDate - current.EndDate).TotalDays)
-            })
-            .OrderByDescending(g => g.Gap)
-            .FirstOrDefault();
+        CalculateFurthestApart(getAllHolidays);
+    }
+
+    private void CalculateFurthestApart(List<Holiday> getAllHolidays)
+    {
+        var futureHolidays = getAllHolidays
+                .Where(e => e.StartDate >= DateTime.Today) // Filter only future holidays
+                .OrderBy(e => e.StartDate);
+
+        var furthestApart = futureHolidays
+        .Zip(futureHolidays.OrderBy(e => e.StartDate).Skip(1), (current, next) => new
+        {
+            CurrentEnd = current.EndDate,
+            NextStart = next.StartDate,
+            Gap = Math.Max(0, (next.StartDate - current.EndDate).TotalDays)
+        })
+        .OrderByDescending(g => g.Gap) // Order by the largest gap
+        .FirstOrDefault(); // Get the furthest gap
+
         if (furthestApart is not null)
         {
             FarApartHolidayEnd = furthestApart.CurrentEnd;
             FarApartHolidayStart = furthestApart.NextStart;
-            HighestNoOfDaysApart = (double)furthestApart.Gap;
+            HighestNoOfDaysApart = furthestApart.Gap;
         }
     }
 }
