@@ -1,20 +1,19 @@
 ﻿using HolidayTracker.Data;
+using HolidayTracker.Services;
 using System.Diagnostics;
 
 namespace HolidayTracker;
 
 public partial class App : Application
 {
-    private readonly HolidaysRepository _bookedDaysRepository;
-    private readonly HolidaysRepository _holidaysRepository;
-    public App(HolidaysRepository bookedDaysRepository, HolidaysRepository holidaysRepository)
-	{
-		InitializeComponent();
+    private readonly HolidayTrackerService _service;
+    public App(HolidayTrackerService service)
+    {
+        InitializeComponent();
 
-		_bookedDaysRepository = bookedDaysRepository;
-        _holidaysRepository = holidaysRepository;
+        _service = service;
         MainPage = new AppShell();
-	}
+    }
 
     protected override async void OnStart()
     {
@@ -25,8 +24,7 @@ public partial class App : Application
         // Initialize the database asynchronously only once on app start
         try
         {
-            await _bookedDaysRepository.SeedDataAsync();
-            await _holidaysRepository.SeedDataAsync();
+            await _service.SeedDataAsync();
         }
         catch (Exception ex)
         {

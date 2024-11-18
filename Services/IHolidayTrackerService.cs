@@ -3,9 +3,13 @@ namespace HolidayTracker.Services
 {
     public interface IHolidayTrackerService
     {
-        Task<List<Holidays>> GetHolidays();
-        Task<int> DeleteHolidays(Holidays booked);
-        Task<int> SaveHolidays(Holidays booked);
+        Task<List<Holiday>> GetAllHolidays();
+        Task<int> DeleteHolidays(Holiday booked);
+        Task<int> SaveHoliday(Holiday booked);
         Task ResetDatabase();
+        int CalculateDaysTakenForAlex(DateTime startDate, DateTime endDate);
+        int CalculateDaysTakenForElla(DateTime startDate, DateTime endDate);
+
+        Task SeedDataAsync();
     }
 }

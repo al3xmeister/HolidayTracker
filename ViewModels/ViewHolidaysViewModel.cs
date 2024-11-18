@@ -7,25 +7,25 @@ namespace HolidayTracker.ViewModels
         private readonly HolidayTrackerService _service = service;
 
         [ObservableProperty]
-        private ObservableCollection<Holidays> _holidays;
+        private ObservableCollection<Holiday> _holidays;
 
         [ObservableProperty]
         private DateTime _today = DateTime.Today;
 
         public async Task LoadHolidays()
         {
-            var booked = await _service.GetHolidays();
-            Holidays = new ObservableCollection<Holidays>(booked);
+            var booked = await _service.GetAllHolidays();
+            Holidays = new ObservableCollection<Holiday>(booked);
         }
 
         [RelayCommand]
-        private void Edit(Holidays holiday)
+        private void Edit(Holiday holiday)
         {
             holiday.Edit = !holiday.Edit;
         }
 
         [RelayCommand]
-        private async Task Delete(Holidays holiday)
+        private async Task Delete(Holiday holiday)
         {
             var result = await _service.DeleteHolidays(holiday);
 
@@ -36,9 +36,9 @@ namespace HolidayTracker.ViewModels
         }
 
         [RelayCommand]
-        private async Task Update(Holidays holiday)
+        private async Task Update(Holiday holiday)
         {
-            await _service.SaveHolidays(holiday);
+            await _service.SaveHoliday(holiday);
         }
     }
 }

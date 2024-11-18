@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HolidayTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+0a0a00e46a43fb56b971688a3d8c3c8674b7a44c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+92f62ec9b2662499a7d464ec9e23ce837834f2f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("HolidayTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HolidayTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

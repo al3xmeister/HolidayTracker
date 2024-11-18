@@ -6,34 +6,42 @@
     xmlns:c="clr-namespace:HolidayTracker.Converters"
     xmlns:models="clr-namespace:HolidayTracker.Models"
     xmlns:viewmodels="clr-namespace:HolidayTracker.ViewModels"
-    Title="Overview"
+    Title="Ansamblu"
     x:DataType="viewmodels:HomeViewModel">
 
-    <Grid RowDefinitions="Auto,*, Auto">
+    <Grid
+        Padding="10,0"
+        RowDefinitions="Auto,Auto,Auto,Auto, Auto, Auto"
+        RowSpacing="10">
 
         <Label
             Grid.Row="0"
             Margin="0,10"
             FontSize="20"
             HorizontalOptions="Center"
-            Text="{Binding CurrentMonthDisplay,
-                           StringFormat='Showing best dates for {0}'}" />
+            Text="Per total:" />
 
-        <HorizontalStackLayout
-            Grid.Row="2"
-            Margin="0,10"
-            HorizontalOptions="Center"
-            Spacing="10">
-            <Button
-                Command="{Binding LoadPreviousMonthCommand}"
-                HorizontalOptions="Center"
-                Text="Previous month" />
-            <Button
-                Command="{Binding LoadNextMonthCommand}"
-                HorizontalOptions="Center"
-                Text="Next month" />
-        </HorizontalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Ella are x/33 zile luate de concediu pentru anul 2024/2025" />
+            <Label Text="Alex are x/16 zile luate de concediu pentru anul 2024/2025" />
+        </VerticalStackLayout>
 
+        <VerticalStackLayout Grid.Row="2">
+            <Label Text="Au mai rămas x zile până la concediul următor:" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="3">
+            <Label Text="Media zilelor între concedii este de x zile" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="4">
+            <Label Text="Cea mai mare distanta intre concedii este intre x si y" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="5">
+            <Label Text="{Binding RemainingDaysAlex, StringFormat='Au mai rămas de luat anul ăsta pt Alex: {0} zile'}" />
+            <Label Text="{Binding RemainingDaysElla, StringFormat='Au mai rămas de luat anul ăsta pt Ella: {0} zile'}" />
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
 

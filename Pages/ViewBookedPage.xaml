@@ -16,7 +16,7 @@
 
             <!--  Define the template for each item in the list  -->
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Holidays">
+                <DataTemplate x:DataType="models:Holiday">
                     <Border
                         Margin="10"
                         Padding="10"
@@ -34,9 +34,7 @@
                                     IsEnabled="{Binding Edit}"
                                     Text="{Binding Name}" />
 
-                                <HorizontalStackLayout
-                                    Padding="5,0"
-                                    VerticalOptions="Center">
+                                <HorizontalStackLayout VerticalOptions="Center">
                                     <DatePicker
                                         Date="{Binding StartDate}"
                                         Format="dd/MM/yyyy"
@@ -47,6 +45,11 @@
                                         Format="dd/MM/yyyy"
                                         IsEnabled="{Binding Edit}" />
                                 </HorizontalStackLayout>
+
+                                <VerticalStackLayout Padding="5,0">
+                                    <Label Text="{Binding Person, StringFormat='Pt: {0}'}" />
+                                    <Label Text="{Binding Person, StringFormat='Nr zile luate: {0}'}" />
+                                </VerticalStackLayout>
 
                             </StackLayout>
 

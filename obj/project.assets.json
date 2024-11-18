@@ -29994,11 +29994,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Repos\\Tracker\\HolidayTracker.csproj",
+      "projectUniqueName": "D:\\Projects\\HolidayTracker\\HolidayTracker.csproj",
       "projectName": "HolidayTracker",
-      "projectPath": "C:\\Repos\\Tracker\\HolidayTracker.csproj",
+      "projectPath": "D:\\Projects\\HolidayTracker\\HolidayTracker.csproj",
       "packagesPath": "C:\\Projects",
-      "outputPath": "C:\\Repos\\Tracker\\obj\\",
+      "outputPath": "D:\\Projects\\HolidayTracker\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

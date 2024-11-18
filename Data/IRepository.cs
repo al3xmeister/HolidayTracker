@@ -9,5 +9,6 @@
         Task<List<T>> GetItemsAsync();
 
         Task<T> GetItemAsync(int id);
+        Task<int> InsertItemsAsync(List<T> items);
     }
 }

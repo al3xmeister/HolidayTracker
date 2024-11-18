@@ -16,8 +16,7 @@ public partial class HomePage : ContentPage
 
         if (BindingContext is HomeViewModel viewModel)
         {
-            // Load booked days
-            await viewModel.LoadCurrentMonth();
+            await viewModel.LoadCalculations();
         }
     }
 }

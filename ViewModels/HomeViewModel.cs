@@ -2,51 +2,29 @@
 
 namespace HolidayTracker.ViewModels;
 
-public partial class HomeViewModel : BaseViewModel
+public partial class HomeViewModel(HolidayTrackerService service) : BaseViewModel
 {
-    private readonly HolidayTrackerService _service;
-    private int _currentMonth = DateTime.Today.Month;
-    private int _currentYear = DateTime.Today.Year;
+    private readonly HolidayTrackerService _service = service;
+    [ObservableProperty]
+    private int _remainingDaysAlex;
 
     [ObservableProperty]
-    private string _currentMonthDisplay;
+    private int _remainingDaysElla;
 
-    public async Task LoadCurrentMonth()
-    {
-        CurrentMonthDisplay = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Today.Month);
-    }
+    [ObservableProperty]
+    private int _takenDaysAlex;
 
-    public HomeViewModel(HolidayTrackerService service)
-    {
-        CurrentMonthDisplay = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_currentMonth);
-        _service = service;
-    }
+    [ObservableProperty]
+    private int _takenDaysElla;
 
-    [RelayCommand]
-    private async Task LoadPreviousMonth()
+    public async Task LoadCalculations()
     {
-        if (_currentMonth > 1) _currentMonth--;
-        if (_currentMonth == 1)
-        {
-            _currentMonth = 12;
-            _currentYear--;
-        }
-        CurrentMonthDisplay = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_currentMonth);
-    }
+        var getTotalTaken = await _service.GetAllHolidays();
 
-    [RelayCommand]
-    private async Task LoadNextMonth()
-    {
-        if (_currentMonth < 12)
-        {
-            _currentMonth++;
-        }
-        //if after December, start over
-        else if (_currentMonth == 12)
-        {
-            _currentMonth = 1;
-            _currentYear++;
-        }
-        CurrentMonthDisplay = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_currentMonth);
+        TakenDaysAlex = getTotalTaken.Where(d => d.Person == HolidayTracker.Enums.Person.Alex.ToString()).Sum(h => h.Taken);
+        RemainingDaysAlex = 33 - TakenDaysAlex;
+
+        TakenDaysElla = getTotalTaken.Where(d => d.Person == HolidayTracker.Enums.Person.Ella.ToString()).Sum(h => h.Taken);
+        RemainingDaysElla = 16 - TakenDaysElla;
     }
 }
