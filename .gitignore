@@ -4,3 +4,4 @@
 
 /.vs/HolidayTracker
 /bin/Debug/net8.0-android
+obj/
