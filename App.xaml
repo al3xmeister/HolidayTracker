@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary>
                     <cv:DummyConverter x:Key="DummyConverter" />
+                    <cv:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                    <cv:DoubleToDayCountConverter x:Key="DoubleToDayCountConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

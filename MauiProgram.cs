@@ -21,21 +21,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont(filename: "FontAwesome6Solid.otf", alias: "FontAwesome6");
             });
-
-        // Modify the EntryHandler for all Entry controls
-        EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
-  {
-#if ANDROID
-            // Remove underline on Android
-            handler.PlatformView.Background = null;
-#elif IOS
-      // Remove border on iOS
-      handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#elif WINDOWS
-            // Remove border on Windows
-            handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
-#endif
-  });
+    
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

@@ -1,5 +1,4 @@
-﻿using HolidayTracker.Data;
-using HolidayTracker.Services;
+﻿using HolidayTracker.Services;
 using System.Diagnostics;
 
 namespace HolidayTracker;

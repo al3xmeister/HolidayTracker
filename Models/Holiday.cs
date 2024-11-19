@@ -23,6 +23,22 @@ public class Holiday : INotifyPropertyChanged
         }
     }
 
+    private double _numberOfDaysTaken;
+
+    public double NumberOfDaysTaken
+    {
+        get
+        {
+            return _numberOfDaysTaken;
+        }
+
+        set
+        {
+            _numberOfDaysTaken = value;
+            OnPropertyChanged(nameof(NumberOfDaysTaken));
+        }
+    }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public string? Name { get; set; }

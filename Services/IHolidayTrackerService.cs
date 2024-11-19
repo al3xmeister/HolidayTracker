@@ -9,5 +9,6 @@ namespace HolidayTracker.Services
         Task ResetDatabase();
         Task SeedDataAsync();
         Task<Holiday?> GetHolidayById(int holidayId);
+        Task<List<Holiday>> GetHolidaysByYear(int year);
     }
 }

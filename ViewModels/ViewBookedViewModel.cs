@@ -10,11 +10,23 @@ namespace HolidayTracker.ViewModels
         private ObservableCollection<Holiday>? _booked;
 
         [ObservableProperty]
-        private DateTime _today = DateTime.Today;
+        private int _referenceYear = DateTime.Today.Year;
 
         public async Task LoadBookedDays()
         {
-            var booked = await _service.GetAllHolidays();
+
+            var booked = await _service.GetHolidaysByYear(ReferenceYear);
+
+            for (int i = 0; i < booked.Count; i++)
+            {
+                Holiday? book = booked[i];
+                if (book.NumberOfDaysTaken == default)
+                {
+                    book.NumberOfDaysTaken = await _service.CalculateDaysTakenForAlex(book);
+                    await _service.SaveHoliday(book);
+                }
+            }
+
             Booked = new ObservableCollection<Holiday>(
                 booked.OrderBy(d => d.StartDate)
             );
@@ -41,6 +53,20 @@ namespace HolidayTracker.ViewModels
         private async Task Update(Holiday booked)
         {
             await _service.SaveHoliday(booked);
+        }
+
+        [RelayCommand]
+        private async Task LoadPreviousYear()
+        {
+            ReferenceYear--;
+            await LoadBookedDays();
+        }
+
+        [RelayCommand]
+        private async Task LoadNextYear()
+        {
+            ReferenceYear++;
+            await LoadBookedDays();
         }
     }
 }

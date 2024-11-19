@@ -53,7 +53,7 @@
 
             <Button
                 Command="{Binding SaveCommand}"
-                CommandParameter="{x:Reference StatusEntry}"
+                CommandParameter="{x:Reference NameEntry}"
                 Text="{Binding SaveText}" />
 
         </StackLayout>

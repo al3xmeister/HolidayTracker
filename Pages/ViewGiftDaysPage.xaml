@@ -8,9 +8,33 @@
     xmlns:viewmodels="clr-namespace:HolidayTracker.ViewModels"
     Title="View Gift Days"
     x:DataType="viewmodels:ViewGiftDaysViewModel">
-    <Grid Padding="20">
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto, *">
+
+        <StackLayout
+            Grid.Row="0"
+            Padding="5,20"
+            Orientation="Horizontal"
+            VerticalOptions="Center">
+            <Button
+                Command="{Binding LoadPreviousYearCommand}"
+                HorizontalOptions="StartAndExpand"
+                Text="Previous year" />
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="CenterAndExpand"
+                Text="{Binding ReferenceYear}"
+                VerticalOptions="Center" />
+            <Button
+                Command="{Binding LoadNextYearCommand}"
+                HorizontalOptions="EndAndExpand"
+                Text="Next year" />
+        </StackLayout>
         <CollectionView
             x:Name="Days"
+            Grid.Row="1"
             ItemsSource="{Binding GiftDays}"
             SelectionMode="None">
 
@@ -32,6 +56,15 @@
                                     FontAttributes="Bold"
                                     FontSize="Medium"
                                     IsEnabled="{Binding Edit}"
+                                    IsVisible="{Binding Edit}"
+                                    Text="{Binding Name}" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    IsVisible="{Binding Edit,
+                                                        Converter={StaticResource InvertedBoolConverter}}"
+                                    LineBreakMode="HeadTruncation"
+                                    MaxLines="2"
                                     Text="{Binding Name}" />
 
                                 <HorizontalStackLayout VerticalOptions="Center">
@@ -39,6 +72,15 @@
                                         Date="{Binding Day}"
                                         Format="dd/MM/yyyy"
                                         IsEnabled="{Binding Edit}" />
+
+                                    <Picker
+                                        Title="Pentru"
+                                        IsEnabled="{Binding Edit}"
+                                        IsVisible="{Binding Edit}"
+                                        ItemsSource="{Binding Source={x:Reference Days},
+                                                              Path=BindingContext.Persons}"
+                                        SelectedItem="{Binding Person,
+                                                               Mode=TwoWay}" />
 
                                 </HorizontalStackLayout>
 

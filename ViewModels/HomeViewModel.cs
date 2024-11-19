@@ -38,12 +38,37 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
 
     [ObservableProperty]
     private double _highestNoOfDaysApart;
+
+    [ObservableProperty]
+    private int _referenceYear = DateTime.Today.Year;
+
+    [RelayCommand]
+    private async Task LoadPreviousYear()
+    {
+        ReferenceYear--;
+        await LoadCalculations();
+    }
+
+    [RelayCommand]
+    private async Task LoadNextYear()
+    {
+        ReferenceYear++;
+        await LoadCalculations();
+    }
+
     public async Task LoadCalculations()
     {
-        var today = DateTime.Today;
-        var getAllHolidays = await _service.GetAllHolidays();
-        var getCurrentYearHolidaysAlex = getAllHolidays.Where(d => d.Person == Enums.Person.Alex.ToString() && d.StartDate.Year == today.Year);
-        var getCurrentYearHolidaysElla = getAllHolidays.Where(d => d.Person == Enums.Person.Ella.ToString() && d.StartDate.Year == today.Year);
+        var today = DateTime.Now;
+
+        if (ReferenceYear < today.Year)
+        {
+            await Application.Current!.MainPage!.DisplayAlert("Neimplementat", "Pentru anul trecut nu putem calcula date", "Ok");
+            return;
+        }
+
+        var getAllHolidays = await _service.GetHolidaysByYear(ReferenceYear);
+        var getCurrentYearHolidaysAlex = getAllHolidays.Where(d => d.Person == Enums.Person.Alex.ToString() && d.StartDate.Year == ReferenceYear);
+        var getCurrentYearHolidaysElla = getAllHolidays.Where(d => d.Person == Enums.Person.Ella.ToString() && d.StartDate.Year == ReferenceYear);
         double takenDaysAlex = 0;
         foreach (var holiday in getCurrentYearHolidaysAlex)
         {
@@ -66,7 +91,7 @@ public partial class HomeViewModel(HolidayTrackerService service) : BaseViewMode
             .FirstOrDefault();
         if (closestHoliday is not null)
         {
-            DaysUntilNextHoliday = (closestHoliday.StartDate - today).Days;
+            DaysUntilNextHoliday = (closestHoliday.StartDate - today).TotalDays;
             NextHolidayStart = closestHoliday.StartDate;
             NextHolidayEnd = closestHoliday.EndDate;
             NextHolidayName = closestHoliday.Name;

@@ -10,12 +10,27 @@ namespace HolidayTracker.ViewModels
         private ObservableCollection<GiftDay>? _giftDays;
 
         [ObservableProperty]
-        private DateTime _today = DateTime.Today;
+        private int _referenceYear = DateTime.Today.Year;
+
+        public ObservableCollection<string> Persons { get; } =
+        [
+            Enums.Person.Alex.ToString(),
+            Enums.Person.Ella.ToString(),
+        ];
+
+        [ObservableProperty]
+        private string? _person;
 
         public async Task LoadGiftDays()
         {
+            if (ReferenceYear >= DateTime.Today.AddYears(3).Year)
+            {
+                await Application.Current!.MainPage!.DisplayAlert("Neimplementat", "Pentru 3 ani+ nu putem calcula date", "Ok");
+                return;
+            }
             List<GiftDay> gifted = await _service.GetGiftedHolidays();
-            GiftDays = new ObservableCollection<GiftDay>(gifted);
+            var yearly = gifted.Where(d => d.Day.Year == ReferenceYear).ToList();
+            GiftDays = new ObservableCollection<GiftDay>(yearly);
         }
 
         [RelayCommand]
@@ -38,7 +53,12 @@ namespace HolidayTracker.ViewModels
         [RelayCommand]
         private async Task Update(GiftDay giftDay)
         {
-            await _service.SaveGiftDay(giftDay);
+            var updated = await _service.SaveGiftDay(giftDay);
+
+            if (updated == 0)
+            {
+                await Application.Current!.MainPage!.DisplayAlert("Error", "Unable to save", "Ok");
+            }
         }
 
         [RelayCommand]
@@ -50,6 +70,20 @@ namespace HolidayTracker.ViewModels
                 Edit = true,
                 Name = "Extra",
             });
+        }
+
+        [RelayCommand]
+        private async Task LoadPreviousYear()
+        {
+            ReferenceYear--;
+            await LoadGiftDays();
+        }
+
+        [RelayCommand]
+        private async Task LoadNextYear()
+        {
+            ReferenceYear++;
+            await LoadGiftDays();
         }
     }
 }
